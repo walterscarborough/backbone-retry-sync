@@ -1,0 +1,27 @@
+{
+    "preset": "google",
+    "validateIndentation": 4,
+    "maximumLineLength": 150,
+    "requireCamelCaseOrUpperCaseIdentifiers": "ignoreProperties",
+    "disallowKeywordsOnNewLine": [],
+    "requireOperatorBeforeLineBreak": [
+        "?",
+        "=",
+        "/",
+        "*",
+        "==",
+        "===",
+        "!=",
+        "!==",
+        ">",
+        ">=",
+        "<",
+        "<="
+    ],
+    "excludeFiles": [
+        "node_modules/**",
+        "test/**",
+        "app/bower_components/**",
+        "app/scripts/vendor/**"
+    ]
+}
