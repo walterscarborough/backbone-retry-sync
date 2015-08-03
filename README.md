@@ -30,7 +30,7 @@ Two annotations are currently supported:
 For example:
 
 ```
-var MyFancyModel = Backbone.Agave.Model.extend({
+var MyFancyModel = Backbone.Model.extend({
     initialize: function() {
         this.retrySyncEngine = MyFancySyncLibrary.sync;
         this.retrySyncLimit = 3;
