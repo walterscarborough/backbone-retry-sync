@@ -35,6 +35,7 @@ var MyFancyModel = Backbone.Model.extend({
         this.retrySyncEngine = MyFancySyncLibrary.sync;
         this.retrySyncLimit = 3;
     },
+    sync: Backbone.RetrySync,
 });
 ```
 
