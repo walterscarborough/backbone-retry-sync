@@ -33,27 +33,33 @@
         var deferred = $.Deferred();
         var that = this;
 
-        var retrySyncOperation = function() {
+        var retrySyncOperation = function(lastJqXhr, lastTextStatus, lastErrorThrown) {
+
+            // Don't let syncEngine() overwrite options on retries
+            // Otherwise, it won't return accurate error messages
+            var localOptions = _.extend({}, options);
 
             retrySyncCounter++;
 
             // Stop and error out if we're over the limit
             if (retrySyncCounter > retrySyncLimit) {
-                deferred.reject();
+                deferred.reject(lastJqXhr, lastTextStatus, lastErrorThrown);
             }
             else {
-                syncEngine(method, model, options)
-                    .then(function() {
+                syncEngine(method, model, localOptions)
+                    .then(function(jqXhr, textStatus, errorThrown) {
+
                         // Success, let's exit
-                        deferred.resolve();
+                        deferred.resolve(jqXhr, textStatus, errorThrown);
                     })
-                    .fail(function() {
+                    .fail(function(jqXhr, textStatus, errorThrown) {
+
                         // Try syncing again
-                        retrySyncOperation();
+                        retrySyncOperation(jqXhr, textStatus, errorThrown);
                     })
                     ;
             }
-        }
+        };
 
         // Start initial sync operation
         retrySyncOperation();
